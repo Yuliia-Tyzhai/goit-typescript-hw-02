@@ -1,7 +1,7 @@
 import React from 'react';
 import { RotatingSquare } from 'react-loader-spinner';
 
-const Loader = () => {
+const Loader: React.FC = () => {
   return (
     <RotatingSquare
       visible={true}

@@ -2,7 +2,24 @@ import React from 'react';
 import styles from './ImageGallery.module.css';
 import ImageCard from '../ImageCard/ImageCard';
 
-const ImageGallery = ({ images, onImageClick }) => {
+interface Image {
+  id: string;
+  urls: {
+    small: string;
+  };
+  alt_description: string;
+  description: string | null;
+}
+
+interface ImageGalleryProps {
+  images: Image[];
+  onImageClick: (image: Image) => void;
+}
+
+const ImageGallery: React.FC<ImageGalleryProps> = ({
+  images,
+  onImageClick,
+}) => {
   return (
     <div className={styles.photoPage}>
       <ul className={styles.list}>

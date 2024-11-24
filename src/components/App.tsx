@@ -5,47 +5,57 @@ import Loader from './Loader/Loader';
 import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './ImageModal/ImageModal';
 import fetchImages from '../services/api';
+import { ApiResponse, Image, ModalProps } from '../types';
 
-// import './App.css'
+export interface AppState {
+  images: Image[];
+  isLoading: boolean;
+  isError: boolean;
+  searchValue: string | null;
+  modalIsOpen: boolean;
+  selectedImage: ModalProps | null;
+  page: number;
+  hasMore: boolean;
+  totalPages: number;
+}
 
 function App() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(null);
-  const [searchValue, setSearchValue] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [totalPages, setTotalPages] = useState(0);
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string | null>(null);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<ModalProps | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
-  const onSearch = searchTerm => {
+  const onSearch = (searchTerm: string): void => {
     setSearchValue(searchTerm);
     setImages([]);
-    setPage(1);
   };
 
-  const loadMore = () => {
+  const loadMore = (): void => {
     setPage(prevPage => prevPage + 1);
   };
 
-  const openModal = image => {
+  const openModal = (image: ModalProps): void => {
     setSelectedImage(image);
     setModalIsOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setSelectedImage(null);
     setModalIsOpen(false);
   };
 
   useEffect(() => {
-    const fetchImagesBySearchValue = async () => {
+    const fetchImagesBySearchValue = async (): Promise<void> => {
       if (!searchValue) return;
 
       setIsLoading(true);
       try {
-        const data = await fetchImages(searchValue, page);
+        const data: ApiResponse = await fetchImages(searchValue, page);
         setImages(prevImages => [...prevImages, ...data.results]);
         setHasMore(data.results.length > 0);
         setTotalPages(data.total_pages);

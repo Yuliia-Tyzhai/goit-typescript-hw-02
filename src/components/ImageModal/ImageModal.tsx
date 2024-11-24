@@ -1,6 +1,21 @@
 import React from 'react';
 import Modal from 'react-modal';
 import styles from './ImageModal.module.css';
+
+interface Image {
+  urls: {
+    regular: string;
+  };
+  alt_description: string;
+  description: string | null;
+}
+
+interface ImageModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  image: Image;
+}
+
 const customStyles = {
   content: {
     top: '50%',
@@ -15,8 +30,14 @@ const customStyles = {
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
   },
 };
+
 Modal.setAppElement('#root');
-const ImageModal = ({ isOpen, onRequestClose, image }) => {
+
+const ImageModal: React.FC<ImageModalProps> = ({
+  isOpen,
+  onRequestClose,
+  image,
+}) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -26,20 +47,19 @@ const ImageModal = ({ isOpen, onRequestClose, image }) => {
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
     >
-      {' '}
       <div className={styles.modalContent}>
-        {' '}
         <button onClick={onRequestClose} className={styles.closeButton}>
           Close
-        </button>{' '}
+        </button>
         <img
           src={image.urls.regular}
           alt={image.alt_description}
           className={styles.image}
-        />{' '}
-        <p>{image.description || image.alt_description}</p>{' '}
-      </div>{' '}
+        />
+        <p>{image.description || image.alt_description}</p>
+      </div>
     </Modal>
   );
 };
+
 export default ImageModal;
