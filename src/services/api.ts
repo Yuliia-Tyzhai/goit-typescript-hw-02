@@ -1,16 +1,7 @@
 import axios from 'axios';
+import { Image } from '../types';
 
 const UNSPLASH_ACCESS_KEY = 'yvyVy1RExVSyAZXEmZk6-bnRZDkXSEhCn4jC6GZqmXM';
-
-export interface Image {
-  id: string;
-  alt_description: string;
-  urls: {
-    small: string;
-    regular: string;
-  };
-  description: string | null;
-}
 
 export interface ApiResponse {
   results: Image[];

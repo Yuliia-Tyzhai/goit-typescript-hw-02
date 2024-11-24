@@ -21,7 +21,7 @@ export interface ModalProps {
 
 export interface ImageGalleryProps {
   images: Image[];
-  onImageClick: (image: ModalProps) => void;
+  onImageClick: (image: Image) => void;
 }
 
 export interface LoadMoreBtnProps {
