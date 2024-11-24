@@ -1,0 +1,17 @@
+.photoPage {
+  min-width: 100vw;
+  height: 100%;
+  margin-top: 160px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding-left: 0;
+}
+
+.listItem {
+  width: calc((100% - 48px) / 3);
+}
