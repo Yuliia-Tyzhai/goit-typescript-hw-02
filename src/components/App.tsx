@@ -5,14 +5,7 @@ import Loader from './Loader/Loader';
 import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './ImageModal/ImageModal';
 import fetchImages from '../services/api';
-import { ApiResponse, Image, ModalProps } from '../types';
-
-const convertImageToModalProps = (image: Image): ModalProps => {
-  return {
-    url: image.urls.regular,
-    alt: image.alt_description || 'No description',
-  };
-};
+import { ApiResponse, Image } from '../types';
 
 export interface AppState {
   images: Image[];
@@ -20,7 +13,7 @@ export interface AppState {
   isError: boolean;
   searchValue: string | null;
   modalIsOpen: boolean;
-  selectedImage: ModalProps | null;
+  selectedImage: Image | null;
   page: number;
   hasMore: boolean;
   totalPages: number;
@@ -32,7 +25,7 @@ function App() {
   const [isError, setIsError] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<ModalProps | null>(null);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -40,7 +33,6 @@ function App() {
   const onSearch = (searchTerm: string): void => {
     setSearchValue(searchTerm);
     setImages([]);
-    setPage(1);
   };
 
   const loadMore = (): void => {
@@ -48,8 +40,7 @@ function App() {
   };
 
   const openModal = (image: Image): void => {
-    const modalProps = convertImageToModalProps(image);
-    setSelectedImage(modalProps);
+    setSelectedImage(image);
     setModalIsOpen(true);
   };
 

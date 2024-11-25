@@ -13,12 +13,6 @@ export interface ApiResponse {
   total_pages: number;
 }
 
-export interface ModalProps {
-  id: string;
-  url: string;
-  alt: string;
-}
-
 export interface ImageGalleryProps {
   images: Image[];
   onImageClick: (image: Image) => void;
