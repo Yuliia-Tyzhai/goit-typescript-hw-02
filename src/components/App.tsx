@@ -9,7 +9,6 @@ import { ApiResponse, Image, ModalProps } from '../types';
 
 const convertImageToModalProps = (image: Image): ModalProps => {
   return {
-    id: image.id,
     url: image.urls.regular,
     alt: image.alt_description || 'No description',
   };

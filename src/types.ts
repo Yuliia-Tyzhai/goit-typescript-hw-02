@@ -31,5 +31,5 @@ export interface LoadMoreBtnProps {
 export interface ImageModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  image: ModalProps;
+  image: Image;
 }
