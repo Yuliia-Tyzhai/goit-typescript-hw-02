@@ -7,6 +7,14 @@ import ImageModal from './ImageModal/ImageModal';
 import fetchImages from '../services/api';
 import { ApiResponse, Image, ModalProps } from '../types';
 
+const convertImageToModalProps = (image: Image): ModalProps => {
+  return {
+    id: image.id,
+    url: image.urls.regular,
+    alt: image.alt_description || 'No description',
+  };
+};
+
 export interface AppState {
   images: Image[];
   isLoading: boolean;
@@ -33,14 +41,16 @@ function App() {
   const onSearch = (searchTerm: string): void => {
     setSearchValue(searchTerm);
     setImages([]);
+    setPage(1);
   };
 
   const loadMore = (): void => {
     setPage(prevPage => prevPage + 1);
   };
 
-  const openModal = (image: ModalProps): void => {
-    setSelectedImage(image);
+  const openModal = (image: Image): void => {
+    const modalProps = convertImageToModalProps(image);
+    setSelectedImage(modalProps);
     setModalIsOpen(true);
   };
 
